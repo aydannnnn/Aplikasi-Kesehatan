@@ -39,27 +39,22 @@ class InfoView extends GetView<InfoController> {
           SizedBox(
             height: 10,
           ),
-
-           Container(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: FileImage(File(controller.imagePathProfile.val)))),
-          ),
-
           SizedBox(
             height: 10,
           ),
-
           TextField(
+            controller: controller.inputInfo,
           ),
-         SizedBox(
-          height: 10,
-         ),
+          SizedBox(
+            height: 10,
+          ),
           ElevatedButton(
             onPressed: () {
-             
+              controller.addData(
+                imagePath: controller.imagePathProfile.val,
+                info: controller.inputInfo.text,
+              );
+              Get.toNamed('/home');
             },
             child: const Text('Kirim'),
           ),

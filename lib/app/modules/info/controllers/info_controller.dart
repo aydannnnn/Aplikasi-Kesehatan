@@ -6,23 +6,32 @@ class InfoController extends GetxController {
   //TODO: Implement InfoController
 
   final count = 0.obs;
-  final imagePathProfile = ''.val('profile');
+  final imagePathProfile = ''.val('image');
   final data = [].val('storage');
-  TextEditingController _myData = TextEditingController();
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  final tempData = [].obs;
+  final inputInfo = TextEditingController();
 
   @override
   void onReady() {
+    tempData.value = data.val;
+    print('Data:: ${data.val}');
     super.onReady();
   }
 
   @override
   void onClose() {
+    inputInfo.dispose();
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void addData({
+    required String imagePath,
+    required String info,
+  }) {
+    tempData.add(
+      {'imagePath': imagePath, 'inputInfo': info},
+    );
+
+    data.val = tempData;
+  }
 }

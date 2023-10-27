@@ -248,13 +248,12 @@ class profile extends StatelessWidget {
                     //       //   null
                     //       // ),
                     Container(
-                      width: 200,
-                      height: 200,
+                  width: 200,
+                  height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image:
-                            FileImage(File(controller.imagePath.toString())),
-                            ),
+                      image: FileImage(File(controller.imagePath.toString())),
+                    ),
                   ),
                 ),
               ),
@@ -269,8 +268,7 @@ class profile extends StatelessWidget {
                       onPressed: () {
                         controller.getImageFromGallery();
                       },
-                      child: Text('Pilih foto')
-                      ),
+                      child: Text('Pilih foto')),
                   Padding(padding: EdgeInsets.only(right: 50)),
                   ElevatedButton(
                     onPressed: () {

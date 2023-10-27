@@ -20,7 +20,7 @@ class ProfileController extends GetxController {
 
   @override
   void onClose() {
-    infoController.imagePathProfile.val = imagePath();  
+    infoController.imagePathProfile.val = imagePath();
     super.onClose();
   }
 
