@@ -162,19 +162,19 @@
 // }
 
 import 'dart:io';
-import 'package:mylab/app/modules/profile/controllers/profile_controller.dart';
+// import 'package:mylab/app/modules/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:mylab/app/modules/register/views/register_view.dart';
+// import 'package:get/get_core/src/get_main.dart';
+// import 'package:mylab/app/modules/register/views/register_view.dart';
 
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:get_storage/get_storage.dart';
+// import 'package:get_storage/get_storage.dart';
 import 'package:mylab/app/routes/app_pages.dart';
 
 import '../../info/controllers/info_controller.dart';
-import '../../info/views/info_view.dart';
+// import '../../info/views/info_view.dart';
 
 class imagePickerController extends GetxController {
   RxString imagePath = ''.obs;
@@ -230,8 +230,7 @@ class profile extends StatelessWidget {
       //   // ],
       // ),
 
-      body: Obx(() {
-        return Padding(
+      body: Padding(
           padding: EdgeInsets.only(left: 30, right: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,15 +246,21 @@ class profile extends StatelessWidget {
                     //       // FileImage(File(controller.imagePath.toString())) :
                     //       //   null
                     //       // ),
-                    Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: FileImage(File(controller.imagePath.toString())),
+                    Obx(() {
+                  if (controller.imagePath.isEmpty) {
+                    return Text('Kosong');
+                  }
+
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: FileImage(File(controller.imagePath.toString())),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -304,8 +309,7 @@ class profile extends StatelessWidget {
               // ),
             ],
           ),
-        );
-      }),
+        ),
     );
   }
 }

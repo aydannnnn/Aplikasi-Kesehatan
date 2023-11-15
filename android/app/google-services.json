@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "675388448534",
+    "project_id": "aplikasi-kesehatan-a6022",
+    "storage_bucket": "aplikasi-kesehatan-a6022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675388448534:android:b78f03cd201af7ffdd3a37",
+        "android_client_info": {
+          "package_name": "com.mylab.mylab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7nt8ZF9GtzAUBzzKJo7TjaIZGVSXRAuU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,38 +3,134 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:mylab/app/modules/home/util/medical_tile.dart';
+import 'package:mylab/app/modules/home/views/webview_custom.dart';
+import 'package:mylab/app/modules/news/views/article_listPage.dart';
 import 'package:mylab/app/routes/app_pages.dart';
+import 'package:mylab/data/model/auth_controller.dart';
+import 'package:mylab/data/model/login_page.dart';
+// import 'package:mylab/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeView extends GetView<HomeController> {
+  final AuthController _authController = Get.put(AuthController());
   HomeView({Key? key}) : super(key: key);
 
   // Creating static data in list
-  List catNames = [
-    "Emergency",
-    'Hospital',
-    'Appointment',
-    'Drugs',
-  ];
-
-  List<Color> catColors = [
-    Color(0xff0D98BA),
-    Color(0xff0D98BA),
-    Color(0xff0D98BA),
-    Color(0xff0D98BA),
-  ];
-
-  List<Icon> catIcons = [
-    Icon(Icons.emergency, color: Color.fromARGB(255, 0, 102, 203), size: 30),
-    Icon(Icons.local_hospital,
-        color: Color.fromARGB(255, 0, 102, 203), size: 30),
-    Icon(Icons.calendar_month,
-        color: Color.fromARGB(255, 0, 102, 203), size: 30),
-    Icon(Icons.medical_services_outlined,
-        color: Color.fromARGB(255, 0, 102, 203), size: 30),
+  List<Widget> catButtons = [
+    ElevatedButton(
+      onPressed: () {
+        Get.to(() => ArticlePage());
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Color(0xff0D98BA),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(Icons.medical_services_outlined,
+                  color: Color.fromARGB(255, 0, 102, 203), size: 30),
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            'News',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    ),
+    SizedBox(
+      height: 10,
+    ),
+    ElevatedButton(
+      onPressed: () {
+        Get.to(WebviewCustom());
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Color(0xff0D98BA),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(Icons.medical_services_outlined,
+                  color: Color.fromARGB(255, 0, 102, 203), size: 30),
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            'Halodek',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    ),
+    SizedBox(
+      height: 10,
+    ),
+    ElevatedButton(
+      onPressed: () {
+        Get.to(LoginPage());
+      },
+      style: ElevatedButton.styleFrom(
+        primary: Color(0xff0D98BA),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(Icons.medical_services_outlined,
+                  color: Color.fromARGB(255, 0, 102, 203), size: 30),
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            'Halodek',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    ),
   ];
 
   @override
@@ -146,7 +242,7 @@ class HomeView extends GetView<HomeController> {
                     child: Column(
                       children: [
                         GridView.builder(
-                          itemCount: catNames.length,
+                          itemCount: catButtons.length,
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           gridDelegate:
@@ -155,30 +251,7 @@ class HomeView extends GetView<HomeController> {
                             childAspectRatio: 1.1,
                           ),
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    color: catColors[index],
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                    child: catIcons[index],
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  catNames[index],
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            );
+                            return catButtons[index];
                           },
                         ),
                       ],
@@ -233,20 +306,18 @@ class HomeView extends GetView<HomeController> {
                       SizedBox(
                         height: 10,
                       ),
-                      
+
                       Container(
                         child: Text(
                           "Take a Photo for Consulation",
                           style: TextStyle(
-                            fontSize: 20, 
-                            fontWeight: FontWeight.bold
-                            ),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
 
-                    SizedBox(
-                      height: 10,
-                    ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Container(
                         width: 400,
                         height: 80,
