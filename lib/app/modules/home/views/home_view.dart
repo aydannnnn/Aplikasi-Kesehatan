@@ -6,8 +6,8 @@ import 'package:mylab/app/modules/home/util/medical_tile.dart';
 import 'package:mylab/app/modules/home/views/webview_custom.dart';
 import 'package:mylab/app/modules/news/views/article_listPage.dart';
 import 'package:mylab/app/routes/app_pages.dart';
-import 'package:mylab/data/model/auth_controller.dart';
-import 'package:mylab/data/model/login_page.dart';
+import 'package:mylab/app/modules/login/controllers/auth_controller.dart';
+import 'package:mylab/app/modules/login/views/login_page.dart';
 // import 'package:mylab/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
@@ -93,44 +93,6 @@ class HomeView extends GetView<HomeController> {
         ],
       ),
     ),
-    SizedBox(
-      height: 10,
-    ),
-    ElevatedButton(
-      onPressed: () {
-        Get.to(LoginPage());
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Color(0xff0D98BA),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      child: Column(
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Icon(Icons.medical_services_outlined,
-                  color: Color.fromARGB(255, 0, 102, 203), size: 30),
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Halodek',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    ),
   ];
 
   @override
@@ -154,7 +116,7 @@ class HomeView extends GetView<HomeController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Hi, Daffa Akmal',
+                            'Hi, Ganteng',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -173,10 +135,12 @@ class HomeView extends GetView<HomeController> {
                         decoration: BoxDecoration(
                             color: Colors.blue[600],
                             borderRadius: BorderRadius.circular(12)),
-                        padding: EdgeInsets.all(12),
-                        child: Icon(
-                          Icons.notifications,
-                          color: Colors.white,
+                        padding: EdgeInsets.all(2),
+                        child: IconButton(
+                          onPressed: () {
+                            _authController.logout();
+                          },
+                          icon: Icon(Icons.exit_to_app),
                         ),
                       )
                     ],

@@ -172,6 +172,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:get_storage/get_storage.dart';
 import 'package:mylab/app/routes/app_pages.dart';
+import 'package:mylab/app/modules/login/controllers/auth_controller.dart';
 
 import '../../info/controllers/info_controller.dart';
 // import '../../info/views/info_view.dart';
@@ -208,6 +209,7 @@ class imagePickerController extends GetxController {
 
 class profile extends StatelessWidget {
   imagePickerController controller = Get.put(imagePickerController());
+  final AuthController _authController = Get.put(AuthController());
   final myController = TextEditingController();
 
   @override
@@ -231,85 +233,91 @@ class profile extends StatelessWidget {
       // ),
 
       body: Padding(
-          padding: EdgeInsets.only(left: 30, right: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child:
-                    //       // CircleAvatar(
-                    //       //   radius: 100,
-                    //       //   backgroundImage: controller.imagePath.isNotEmpty ?
-                    //       // FileImage(File(controller.imagePath.toString())) :
-                    //       //   null
-                    //       // ),
-                    Obx(() {
-                  if (controller.imagePath.isEmpty) {
-                    return Text('Kosong');
-                  }
+        padding: EdgeInsets.only(left: 30, right: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child:
+                  //       // CircleAvatar(
+                  //       //   radius: 100,
+                  //       //   backgroundImage: controller.imagePath.isNotEmpty ?
+                  //       // FileImage(File(controller.imagePath.toString())) :
+                  //       //   null
+                  //       // ),
+                  Obx(() {
+                if (controller.imagePath.isEmpty) {
+                  return Text('Kosong');
+                }
 
-                  return Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: FileImage(File(controller.imagePath.toString())),
-                      ),
-                    ),
-                  );
-                }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 100)),
-                  ElevatedButton(
-                      onPressed: () {
-                        controller.getImageFromGallery();
-                      },
-                      child: Text('Pilih foto')),
-                  Padding(padding: EdgeInsets.only(right: 50)),
-                  ElevatedButton(
-                    onPressed: () {
-                      controller.getImagesFromCamera();
-                    },
-                    child: Text(
-                      'Ambil foto',
+                return Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: FileImage(File(controller.imagePath.toString())),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () => Get.offAllNamed(Routes.INFO),
-                child: Text(
-                  "Upload",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue[100]),
+                );
+              }),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.grey, fixedSize: Size(150, 50)),
+                Padding(padding: EdgeInsets.only(top: 100)),
+                ElevatedButton(
+                    onPressed: () {
+                      controller.getImageFromGallery();
+                    },
+                    child: Text('Pilih foto')),
+                Padding(padding: EdgeInsets.only(right: 50)),
+                ElevatedButton(
+                  onPressed: () {
+                    controller.getImagesFromCamera();
+                  },
+                  child: Text(
+                    'Ambil foto',
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Get.offAllNamed(Routes.INFO),
+              child: Text(
+                "Upload",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue[100]),
               ),
-              // TextField(
-              //   controller: myController,
-              // ),
-              // TextButton(onPressed: () {
-              //   box.write('key', myController.text);
-              //   Get.toNamed('/info');
-              // },
-              // child: Text("Move to Info"),
-              // ),
-            ],
-          ),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.grey, fixedSize: Size(150, 50)),
+            ),
+            // TextField(
+            //   controller: myController,
+            // ),
+            // TextButton(onPressed: () {
+            //   box.write('key', myController.text);
+            //   Get.toNamed('/info');
+            // },
+            // child: Text("Move to Info"),
+            // ),
+            IconButton(
+              onPressed: () {
+                _authController.logout();
+              },
+              icon: Icon(Icons.exit_to_app),
+            ),
+          ],
         ),
+      ),
     );
   }
 }

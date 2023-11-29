@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mylab/app/modules/login/views/login_page.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -26,7 +27,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LOGIN,
-      page: () => const LoginView(),
+      page: () => LoginPage(),
       binding: LoginBinding(),
     ),
     GetPage(

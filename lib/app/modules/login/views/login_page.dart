@@ -1,15 +1,25 @@
 import 'package:flutter/gestures.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:mylab/app/modules/login/controllers/auth_controller.dart';
+import 'package:mylab/app/modules/register/views/register_page.dart';
 
-import 'package:mylab/app/routes/app_pages.dart';
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
-import '../controllers/login_controller.dart';
+class _LoginPageState extends State<LoginPage> {
+  final AuthController _authController = Get.put(AuthController());
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
-class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,37 +38,33 @@ class LoginView extends GetView<LoginController> {
             ),
             SizedBox(height: 30),
             Text(
-              "Silahkan masuk dengan nomor anda",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              "Silahkan login terlebih dahulu",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
             Text(
-              "Nomor Telpon",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              "Email",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             TextField(
-              controller: controller.emailC,
+              controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "cth. 081xxxxxx"),
+                  border: OutlineInputBorder(), hintText: "Email"),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), hintText: "Password"),
             ),
             SizedBox(height: 10),
             Row(
               children: [
-                Obx(
-                  () => Checkbox(
-                    value: controller.checkC.value,
-                    onChanged: (value) => controller.checkC.toggle(),
-                  ),
-                ),
                 Expanded(
                   child: RichText(
                     text: TextSpan(
@@ -118,24 +124,43 @@ class LoginView extends GetView<LoginController> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
             SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () => Get.offAllNamed(Routes.HOME),
-              child: Text(
-                "MASUK",
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.grey[300], fixedSize: Size(150, 50)),
+            Obx(
+              () {
+                return ElevatedButton(
+                  onPressed: _authController.isLoading.value
+                      ? null
+                      : () {
+                          _authController.loginUser(
+                            _emailController.text,
+                            _passwordController.text,
+                          );
+                        },
+                  child: _authController.isLoading.value
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                  style: ElevatedButton.styleFrom(primary: Colors.grey[300]),
+                );
+              },
             ),
-            SizedBox(height: 10),
+            SizedBox(
+              height: 10,
+            ),
             TextButton(
-              onPressed: () => Get.offAllNamed(Routes.REGISTER),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterPage()),
+                );
+              },
               child: Text(
                 "Daftar",
                 style: TextStyle(fontSize: 15, color: Colors.blue[900]),
@@ -168,9 +193,6 @@ class LoginView extends GetView<LoginController> {
                     ],
                   ),
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(
-                      Size(150, 50),
-                    ),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -202,9 +224,6 @@ class LoginView extends GetView<LoginController> {
                     ],
                   ),
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(
-                      Size(150, 50),
-                    ),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -221,6 +240,37 @@ class LoginView extends GetView<LoginController> {
             )
           ],
         ),
+        // child: Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [
+        //     TextField(
+        //       controller: _emailController,
+        //       decoration: InputDecoration(labelText: 'Email'),
+        //     ),
+        //     TextField(
+        //       controller: _passwordController,
+        //       obscureText: true,
+        //       decoration: InputDecoration(labelText: 'Password'),
+        //     ),
+        //     SizedBox(height: 16),
+        //     Obx(() {
+        //       return ElevatedButton(
+        //         onPressed: _authController.isLoading.value
+        //             ? null
+        //             : () {
+        //                 _authController.loginUser(
+        //                   _emailController.text,
+        //                   _passwordController.text,
+        //                 );
+        //               },
+        //         child: _authController.isLoading.value
+        //             ? CircularProgressIndicator()
+        //             : Text('Login'),
+        //       );
+        //     }),
+        //   ],
+        // ),
       ),
     );
   }

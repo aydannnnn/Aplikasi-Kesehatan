@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mylab/data/model/auth_controller.dart';
+import 'package:mylab/app/modules/login/controllers/auth_controller.dart';
+import 'package:mylab/app/modules/register/views/register_appwrite.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -26,20 +27,37 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         title: Text('Register'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 15),
+            Container(
+              width: 100,
+              height: 100,
+              child: Image.asset("assets/logo/ikon1-logo.png"),
+            ),
+            SizedBox(height: 30),
+            Text(
+              "Silahkan daftar terlebih dahulu",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
+              autocorrect: false,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), hintText: "Email"),
             ),
+            SizedBox(height: 10),
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(), hintText: "Password"),
             ),
             SizedBox(
               height: 16,
@@ -54,9 +72,24 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                 child: _authController.isLoading.value
                     ? CircularProgressIndicator()
-                    : Text('Register'),
+                    : Text(
+                        "Submit",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            color: Colors.white),
+                      ),
               );
             }),
+            SizedBox(height: 16),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterAppwrite()),
+                  );
+                },
+                child: const Text("Register via Appwrite")),
           ],
         ),
       ),
