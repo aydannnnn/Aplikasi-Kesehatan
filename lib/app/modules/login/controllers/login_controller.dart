@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   var checkC = false.obs;
   //TODO: Implement LoginController
-TextEditingController emailC = TextEditingController();
+  TextEditingController emailC = TextEditingController();
 
-@override
+  @override
   void onClose() {
     emailC.dispose();
     super.onClose();
   }
- 
 }

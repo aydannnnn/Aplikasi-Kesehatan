@@ -30,9 +30,9 @@ class FirebaseMessagingHandler {
     );
     print('User granted permission: ${settings.authorizationStatus}');
 //get token messaging
-    _firebaseMessaging.getToken().then((token) {
-      print('FCM Token: $token');
-    });
+    // _firebaseMessaging.getToken().then((token) {
+    //   print('FCM Token: $token');
+    // });
 //handler terminated message
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null && message.notification != null) {

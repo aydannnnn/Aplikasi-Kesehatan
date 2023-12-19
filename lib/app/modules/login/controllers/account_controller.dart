@@ -1,6 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mylab/app/modules/home/views/home_view.dart';
 import 'package:mylab/app/modules/login/controllers/client_controller.dart';
 import 'package:mylab/app/modules/login/views/login_page.dart';
 
@@ -12,6 +13,12 @@ class AccountController extends ClientController {
     super.onInit();
 // appwrite
     account = Account(client);
+  }
+
+  void handleSyaratTap() {
+    // Implement the behavior of the handleSyaratTap function
+    print('Handling syarat tap');
+    // Add any additional logic based on your requirements
   }
 
   Future createAccount(String email, String password, String name) async {
@@ -34,13 +41,14 @@ class AccountController extends ClientController {
     }
   }
 
-  Future createEmailSession(Map map) async {
+  Future createEmailSession(String email, String password) async {
     try {
       final result = await account!.createEmailSession(
-        email: map['email'],
-        password: map['password'],
+        email: email,
+        password: password,
       );
       print("AccountController:: createEmailSession $result");
+      Get.off(HomeView());
     } catch (error) {
       Get.defaultDialog(
         title: "Error Account",

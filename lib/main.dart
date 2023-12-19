@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:mylab/app/modules/home/controllers/database_controller.dart';
+import 'package:mylab/app/modules/home/views/dashboard_controller.dart';
 import 'package:mylab/app/modules/profile/views/profile_view.dart';
 import 'package:mylab/notification_handler.dart';
 import 'package:mylab/firebase_options.dart';
@@ -13,13 +13,15 @@ import 'app/routes/app_pages.dart';
 import 'app/widget/splash.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();              
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Get.putAsync(() async => await SharedPreferences.getInstance());
   await FirebaseMessagingHandler().initPushNotification();
   await FirebaseMessagingHandler().initLocalNotification();
+  Get.put(DashboardController());
+  Get.put(DatabaseController());
   runApp(MyApp());
 }
 

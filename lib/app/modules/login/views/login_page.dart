@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mylab/app/modules/login/controllers/auth_controller.dart';
 import 'package:mylab/app/modules/register/views/register_page.dart';
+import 'package:mylab/app/modules/login/controllers/account_controller.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,7 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final AuthController _authController = Get.put(AuthController());
+  // final AuthController _authController = Get.put(AuthController());
+  final AccountController _accountController = Get.put(AccountController());
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   @override
@@ -18,6 +19,12 @@ class _LoginPageState extends State<LoginPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void handleSyaratTap() {
+    // Implement the behavior of the handleSyaratTap function
+    print('Handling syarat tap');
+    // Add any additional logic based on your requirements
   }
 
   @override
@@ -131,15 +138,15 @@ class _LoginPageState extends State<LoginPage> {
             Obx(
               () {
                 return ElevatedButton(
-                  onPressed: _authController.isLoading.value
+                  onPressed: _accountController.isLoading.value
                       ? null
                       : () {
-                          _authController.loginUser(
+                          _accountController.createEmailSession(
                             _emailController.text,
                             _passwordController.text,
                           );
                         },
-                  child: _authController.isLoading.value
+                  child: _accountController.isLoading.value
                       ? CircularProgressIndicator()
                       : Text(
                           "LOGIN",
